@@ -1,0 +1,1 @@
+PowerShell.exe -ExecutionPolicy Bypass -File .\Start-SWTOR-w-Password.ps1
