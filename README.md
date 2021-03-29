@@ -13,4 +13,4 @@ means.
 Copy launchSwtor.bat and Start-SWTOR-w-Password.ps1 to the same directory. Double click launchSwtor.bat
 
 ## Notes:
-Unsupported. I am not likely to update the code for this script. This was a one-off.
+Unsupported. I am not likely to update the code for this script. This was a one-off/request from someone.
