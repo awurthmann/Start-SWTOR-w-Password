@@ -38,7 +38,7 @@ Right Click the new Shortcut, click Properties and Click the "Change Icon" butto
 Click "OK"  
 ![alt text](https://raw.githubusercontent.com/awurthmann/Start-SWTOR-w-Password/main/optional/pics/5.%20Click%20ok.png)
 
-Navitate to where SWTOR is installed, current default: "C:\Program Files (x86)\Electronic Arts\BioWare\Star Wars - The Old Republic"
+Navitate to where SWTOR is installed, current default: "C:\Program Files (x86)\Electronic Arts\BioWare\Star Wars - The Old Republic".  
 Select "launcher.exe"  
 ![alt text](https://raw.githubusercontent.com/awurthmann/Start-SWTOR-w-Password/main/optional/pics/6.%20Nav%20to%20swtor%20Select%20launcher.png)
 
