@@ -12,8 +12,13 @@ means.
 ## Notes:
 Unsupported. I am not likely to update the code for this script. This was a one-off/request from someone.
 
-## Quick Instructions:
-Copy "launchSwtor.bat" and "Start-SWTOR-w-Password.ps1" to the same directory. Double click launchSwtor.bat
+## Instructions:
+Copy "launchSwtor.bat" and "Start-SWTOR-w-Password.ps1" to the same directory. Double click "launchSwtor.bat".  
+The first time you run the script you will be prompted for your password. Please type it carefully.  
+Your password is stored in an encrypted string in a file. Default location: "Documents\Star Wars - The Old Republic\account.key".  
+The encryption method used is non-portable. Non-portable in this case means the file cannot be reliably decrypted between Windows users and or systems. Recreate the key file per Windows user or system.  
+
+In the event that you change your password on the Star Wars - The Old Republic website or mistyped your password you will need to delete the "key file" and rerun the script. Default location: "Documents\Star Wars - The Old Republic\account.key".
 
 ## Optional Instructions - Pin to taskbar/Start menu
 Unpin any existing apps with the name "Star Wars - The Old Republic" from your taskbar/Start menu. Alternatively you can ammend the instructions below and rename the shortcut to a different name. Example: "Star Wars - The Old Republic Auto Login"
