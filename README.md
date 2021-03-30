@@ -18,10 +18,10 @@ The first time you run the script you will be prompted for your password. Please
 Your password is stored in an encrypted string in a file. Default location: "Documents\Star Wars - The Old Republic\account.key".  
 The encryption method used is non-portable. Non-portable in this case means the file cannot be reliably decrypted between Windows users and or systems. Recreate the key file per Windows user or system.  
 
-In the event that you change your password on the Star Wars - The Old Republic website or mistyped your password you will need to delete the "key file" and rerun the script. Default location: "Documents\Star Wars - The Old Republic\account.key".
+In the event that you change your password on the Star Wars - The Old Republic website or mistyped your password, you will need to delete the "key file" and rerun the script. Default location: "Documents\Star Wars - The Old Republic\account.key".
 
 ## Optional Instructions - Pin to taskbar/Start menu
-Unpin any existing apps with the name "Star Wars - The Old Republic" from your taskbar/Start menu. Alternatively you can ammend the instructions below and rename the shortcut to a different name. Example: "Star Wars - The Old Republic Auto Login"
+Unpin any existing apps with the name "Star Wars - The Old Republic" from your taskbar/Start menu. Alternatively, you can amend the instructions below and rename the shortcut to a different name. Example: "Star Wars - The Old Republic Auto Login"
 
 Download "launchSwtor.bat" and "Start-SWTOR-w-Password.ps1" to your "Documents\Star Wars - The Old Republic" folder.  
 ![alt text](https://raw.githubusercontent.com/awurthmann/Start-SWTOR-w-Password/main/optional/pics/1.%20Download%20to%20Folder.png)
@@ -29,7 +29,7 @@ Download "launchSwtor.bat" and "Start-SWTOR-w-Password.ps1" to your "Documents\S
 Right Click "launchSwtor.bat" and select "Create shortcut"  
 ![alt text](https://raw.githubusercontent.com/awurthmann/Start-SWTOR-w-Password/main/optional/pics/2.%20Create%20Shortcut.png)
 
-Rename Shortcut to "Star Wars - The Old Republic" or a name of your chosing.  
+Rename Shortcut to "Star Wars - The Old Republic" or a name of your choosing.  
 ![alt text](https://raw.githubusercontent.com/awurthmann/Start-SWTOR-w-Password/main/optional/pics/3.%20Rename%20Shortcut.png)
 
 Right Click the new Shortcut, click Properties and Click the "Change Icon" button  
