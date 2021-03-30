@@ -52,4 +52,5 @@ The three files in the directory should appear as such:
 ![alt text](https://raw.githubusercontent.com/awurthmann/Start-SWTOR-w-Password/main/optional/pics/9.%20New%20Icon%20Look.png)
 
 Right Click the Shortcut and select "Pin to taskbar" or "Pin to start"  
+If you don't see "Pin to taskbar" or "Pin to start", you likely skipped adding "cmd /c" to the target field in the Shortcut, see above.  
 ![alt text](https://raw.githubusercontent.com/awurthmann/Start-SWTOR-w-Password/main/optional/pics/10.%20Right%20click%20and%20pin%20to%20task%20or%20start.png)
