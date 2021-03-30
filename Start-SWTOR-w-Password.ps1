@@ -31,7 +31,7 @@
 #						
 # Output: None
 #
-# Notes: Unsupported. I am not likely to update the code for this script. This was a one-off.
+# Notes: Unsupported. I am not likely to update the code for this script. This was a one-off/request from someone.
 # --------------------------------------------------------------------------------------------
 
 Param ([string]$FileKey=$([Environment]::GetFolderPath("MyDocuments"))+"\Star Wars - The Old Republic\account.key")
