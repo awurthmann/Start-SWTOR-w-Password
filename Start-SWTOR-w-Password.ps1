@@ -13,12 +13,12 @@
 #
 # --------------------------------------------------------------------------------------------
 # Name: Start-SWTOR-w-Password.ps1
-# Version: 2021.03.26.171701
+# Version: 2021.03.30.092701
 # Description: Stores password in a non-portable encrypted format within a file. Uses file to 
 #	retrieve and unencrypt the password, copies it to the clipboard then launches SWTOR and pastes it.
 #	Clears the clipboard for good measure.
 #	Non-portable in this case means the file cannot be reliably decrypted between Windows users and or systems.
-#	Recreate the file key per Windows user or system.
+#	Recreate the key file per Windows user or system.
 # 
 # Instructions: 
 #	Copy launchSwtor.bat and Start-SWTOR-w-Password.ps1 to the same directory. Double click launchSwtor.bat
@@ -27,14 +27,14 @@
 #	Microsoft Windows [Version 10.0.19042.804]
 #	PowerShell [Version 5.1.19041.610]
 #	SWTOR Launcher [Version 3.2.6.0]
-# Arguments: [optional] FileKey 
+# Arguments: [optional] KeyFile 
 #						
 # Output: None
 #
 # Notes: Unsupported. I am not likely to update the code for this script. This was a one-off/request from someone.
 # --------------------------------------------------------------------------------------------
 
-Param ([string]$FileKey=$([Environment]::GetFolderPath("MyDocuments"))+"\Star Wars - The Old Republic\account.key")
+Param ([string]$KeyFile=$([Environment]::GetFolderPath("MyDocuments"))+"\Star Wars - The Old Republic\account.key")
 
 ##Admin Check##
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))  {  
@@ -60,16 +60,16 @@ function Show-Process($Process, [Switch]$Maximize) {
 ##End Show-Process##
 
 ##Create File##
-If (!(Test-Path $FileKey)) {
+If (!(Test-Path $KeyFile)) {
 	$Password = Read-Host "Enter Password"
 	$SecureString = $Password | ConvertTo-SecureString -AsPlainText -Force
-	$SecureString | ConvertFrom-SecureString | Out-File $FileKey
+	$SecureString | ConvertFrom-SecureString | Out-File $KeyFile
 	Clear-Variable Password,SecureString
 }
 ##End Create File##
 
 ##Main##
-If (Test-Path $FileKey) {
+If (Test-Path $KeyFile) {
 
 	$regKey="HKLM:\SOFTWARE\WOW6432Node\BioWare\Star Wars-The Old Republic"
 	$launcher=$((Get-ItemProperty $regKey)."Install Dir")+"\launcher.exe"
@@ -100,7 +100,7 @@ If (Test-Path $FileKey) {
 			add-type -AssemblyName Microsoft.VisualBasic
 			add-type -AssemblyName System.Windows.Forms
 			
-			$SecureString=Get-Content $FileKey | ConvertTo-SecureString
+			$SecureString=Get-Content $KeyFile | ConvertTo-SecureString
 			$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
 			$Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 
