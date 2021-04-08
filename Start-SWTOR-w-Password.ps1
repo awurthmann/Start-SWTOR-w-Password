@@ -114,6 +114,35 @@ If (Test-Path $KeyFile) {
 			Start-Sleep -Seconds 5
 			[System.Windows.Forms.SendKeys]::SendWait("^v")
 			[System.Windows.Forms.Clipboard]::Clear()
+			
+			$StarParse=$($env:LOCALAPPDATA)+"\StarParse\StarParse.exe"
+			If (Test-Path $StarParse){
+		
+				If ((Get-Process).ProcessName -notcontains "StarParse"){
+					$swtorStarted=$False
+					$WaitCounter=0
+					$WaitLimit=30
+					while ($swtorStarted -eq $False) {
+						If ((Get-Process).ProcessName -contains "swtor") {
+							$swtorStarted=$True
+							Start-Sleep -Seconds 1
+							break
+						}
+						Else {
+							$WaitCounter++
+							If ($WaitCounter -gt $WaitLimit){
+								break
+							}
+							Start-Sleep -Seconds 1
+						}
+					}
+					
+					If ($swtorStarted) {$procStarParse=Start-Process $StarParse -PassThru}
+					
+				}
+			}
+			
+			
 		}
 		Else {
 			$msg="`nERROR: launcher.exe was not detected."
