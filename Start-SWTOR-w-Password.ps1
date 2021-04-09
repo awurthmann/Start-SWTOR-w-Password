@@ -13,7 +13,7 @@
 #
 # --------------------------------------------------------------------------------------------
 # Name: Start-SWTOR-w-Password.ps1
-# Version: 2021.03.30.092701
+# Version: 2021.04.08.181901
 # Description: Stores password in a non-portable encrypted format within a file. Uses file to 
 #	retrieve and unencrypt the password, copies it to the clipboard then launches SWTOR and pastes it.
 #	Clears the clipboard for good measure.
@@ -70,12 +70,14 @@ If (!(Test-Path $KeyFile)) {
 
 ##Main##
 If (Test-Path $KeyFile) {
-
+	Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Locating SWTOR install directory"	
 	$regKey="HKLM:\SOFTWARE\WOW6432Node\BioWare\Star Wars-The Old Republic"
 	$launcher=$((Get-ItemProperty $regKey)."Install Dir")+"\launcher.exe"
+	
 	If (Test-Path $launcher) {
-
+		Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Launcher.exe located"
 		$launcherStarted=$False
+		Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Starting Launcher.exe"
 		$procLauncher=Start-Process $launcher -PassThru
 		
 		$WaitCounter=0
@@ -89,6 +91,8 @@ If (Test-Path $KeyFile) {
 			}
 			Else {
 				$WaitCounter++
+				$percCounter=$WaitCounter*(100/$WaitLimit)
+				Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Starting Launcher.exe" -PercentComplete $percCounter
 				If ($WaitCounter -gt $WaitLimit){
 					break
 				}
@@ -97,13 +101,15 @@ If (Test-Path $KeyFile) {
 		}
 		
 		If ($launcherStarted){
+			Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Launcher Started"
 			add-type -AssemblyName Microsoft.VisualBasic
 			add-type -AssemblyName System.Windows.Forms
 			
+			Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Getting Password"
 			$SecureString=Get-Content $KeyFile | ConvertTo-SecureString
 			$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
 			$Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-
+			
 			Set-Clipboard $Password
 			If($Password){Clear-Variable Password}
 			If($BSTR){Clear-Variable BSTR}
@@ -111,13 +117,20 @@ If (Test-Path $KeyFile) {
 			
 			Show-Process -Process $procLauncher
 			
-			Start-Sleep -Seconds 5
+			$waitSecs=5
+			for ($i = 1; $i -le $waitSecs; $i++ ){
+				Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Waiting $waitSecs seconds..." -PercentComplete $($i*(100/$waitSecs))
+				Start-Sleep -Seconds 1
+			}
+			
+			Write-Progress -Activity "Start SWTOR with Stored Password" -Status "Sending password"
 			[System.Windows.Forms.SendKeys]::SendWait("^v")
 			[System.Windows.Forms.Clipboard]::Clear()
 			
 			$StarParse=$($env:LOCALAPPDATA)+"\StarParse\StarParse.exe"
 			If (Test-Path $StarParse){
-		
+				
+				Write-Progress -Activity "Start SWTOR with Stored Password" -Status "StarParse Found"
 				If ((Get-Process).ProcessName -notcontains "StarParse"){
 					$swtorStarted=$False
 					$WaitCounter=0
@@ -130,6 +143,9 @@ If (Test-Path $KeyFile) {
 						}
 						Else {
 							$WaitCounter++
+							$percCounter=$WaitCounter*(100/$WaitLimit)
+							Write-Progress -Activity "Start StarParse After Login Complete" -Status "Waiting for login to be completed" -PercentComplete $percCounter
+
 							If ($WaitCounter -gt $WaitLimit){
 								break
 							}
@@ -140,15 +156,25 @@ If (Test-Path $KeyFile) {
 					If ($swtorStarted) {$procStarParse=Start-Process $StarParse -PassThru}
 					
 				}
+				Else {
+					Write-Progress -Activity "Start SWTOR with Stored Password" -Status "StarParse already running"
+				}
 			}
 			
 			
 		}
 		Else {
+			Write-Progress -Completed
 			$msg="`nERROR: launcher.exe was not detected."
 			Write-Error -Message $msg -Category OperationTimeout
 		}
 	}
+	Else {
+		Write-Progress -Completed
+		$msg="`nERROR: SWTOR Installation was not found"
+		Write-Error -Message $msg -Category OpenError
+	}
+	
 }
 ##End Main##
 
